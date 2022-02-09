@@ -36,7 +36,7 @@ const App = () => {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            Smart Logger
+            Smart Logger 
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -96,12 +96,12 @@ const App = () => {
         </nav>
         <div className="container mt-3">
           <Switch>
-            <Route  path={["/", "/home"]} component={props => <Home {...props} />} />
-            <Route  path="/login" component={props => <Login {...props} />} />
-            <Route  path="/register" component={props => <Register {...props} />} />
-            <Route path="/user" component={props => <BoardUser {...props} />} />
-            <Route path="/mod" component={props => <BoardModerator {...props} />} />
-            <Route path="/admin" component={props => <BoardAdmin {...props} />} />
+            <Route exact path={["/", "/home"]} component={props => <Home {...props} />} />
+            <Route  exact path="/login" > <Login></Login></Route>
+            <Route exact path="/register" component={props => <Register {...props} />} />
+            <Route exact path="/user" component={props => <BoardUser {...props} />} />
+            <Route exact path="/mod" component={props => <BoardModerator {...props} />} />
+            <Route exact path="/admin" component={props => <BoardAdmin {...props} />} />
           </Switch>
         </div>
       </div>

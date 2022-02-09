@@ -10,6 +10,7 @@ import AuthService from "../../../services/auth.service";
 export const register = (username, email, password) => (dispatch) => {
   return AuthService.register(username, email, password).then(
     (response) => {
+     console.log("rzetzetzetze");
       dispatch({
         type: REGISTER_SUCCESS,
       });
