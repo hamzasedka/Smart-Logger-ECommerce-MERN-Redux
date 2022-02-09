@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router,Link,Route } from 'react-router-dom';
+import {Routes} from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+
 import Login from "./components/Login";
-import Register from "./components/Register";
-import Home from "./components/Home";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
+import Home from "./components/Home";
+import Register from "./components/Register";
+
 import { logout } from "./Redux/actions/authActions/auth";
 import { clearMessage } from "./Redux/actions/messages";
 import { history } from "./helpers/history";
+
+
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -36,7 +41,7 @@ const App = () => {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            Smart Logger
+            Smart Logger 
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -74,9 +79,9 @@ const App = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <Link to="/login" className="nav-link" onClick={logOut}>
                   LogOut
-                </a>
+                </Link>
               </li>
             </div>
           ) : (
@@ -95,14 +100,14 @@ const App = () => {
           )}
         </nav>
         <div className="container mt-3">
-          <Switch>
-            <Route  path={["/", "/home"]} component={props => <Home {...props} />} />
-            <Route  path="/login" component={props => <Login {...props} />} />
-            <Route  path="/register" component={props => <Register {...props} />} />
-            <Route path="/user" component={props => <BoardUser {...props} />} />
-            <Route path="/mod" component={props => <BoardModerator {...props} />} />
-            <Route path="/admin" component={props => <BoardAdmin {...props} />} />
-          </Switch>
+          <Routes>
+            <Route path={["/", "/home"]} element={<Home />} />
+            <Route path="/login"  element={<Login />} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/user" element={<BoardUser />} />
+            <Route path="/mod" element={<BoardModerator />} />
+            <Route path="/admin" element={<BoardAdmin />} />
+          </Routes>
         </div>
       </div>
     </Router>
