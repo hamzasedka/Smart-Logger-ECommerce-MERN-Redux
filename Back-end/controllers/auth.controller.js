@@ -37,7 +37,7 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
+      Role.findOne({ roleName: "user" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
@@ -57,7 +57,9 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username
+
   })
+
     .populate("roles", "-__v")
     .exec((err, user) => {
       if (err) {
@@ -82,7 +84,7 @@ exports.signin = (req, res) => {
       });
       var authorities = [];
       for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+        authorities.push("ROLE_" + user.roles[i].roleName.toUpperCase());
       }
       res.status(200).send({
         id: user._id,

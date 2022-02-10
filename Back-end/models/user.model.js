@@ -2,7 +2,7 @@ const mongoose=require("mongoose");
 const User= mongoose.model(
     "User",
     new mongoose.Schema({
-        userName:String,
+        username:String,
         email:String,
         password:String,
         roles:[
