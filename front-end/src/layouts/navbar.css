@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+.navbar{
+position: relative;
+font-family: 'Luckiest Guy', cursive;
+font-size: 23px;
+}
+.navbar-brand{
+position: absolute;
+transform: translate(-50%);
+left: 50%;
+}
+.right-navbar-side{
+position: absolute;
+left: 90%;
+}
+.searchBar{
+position: absolute;
+transform: translate(-50%,-50%);
+width: 50%;
+left: 50%;
+}

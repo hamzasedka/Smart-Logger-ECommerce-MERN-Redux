@@ -14,8 +14,10 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+require('./routes/product.routes')(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+
 
 // simple route
 app.get("/", (req, res) => {
@@ -41,6 +43,7 @@ db.mongoose
     process.exit();
   });
 function initial() {
+
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({
