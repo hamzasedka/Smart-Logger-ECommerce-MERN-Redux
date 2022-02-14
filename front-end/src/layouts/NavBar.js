@@ -6,9 +6,10 @@ import "./navbar.css"
 import Search from './Search';
 function NavBar() {
       const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+          const dispatch = useDispatch();
+
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const { user: currentUser } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
  
     useEffect(() => {
     if (currentUser) {

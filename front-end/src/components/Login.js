@@ -15,6 +15,8 @@ const required = (value) => {
   }
 };
 const Login = (props) => {
+    const { user: currentUser } = useSelector((state) => state.auth);
+
   const form = useRef();
   const checkBtn = useRef();
   const [username, setUsername] = useState("");
@@ -49,6 +51,9 @@ const Login = (props) => {
     }
   };
   if (isLoggedIn) {
+    if(currentUser.roles.includes("ROLE_ADMIN")){
+       return <Navigate to="/admin" />; 
+    }else
     return <Navigate to="/home" />;
   }
   return (
