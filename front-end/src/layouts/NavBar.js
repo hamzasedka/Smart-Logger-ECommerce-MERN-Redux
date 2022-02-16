@@ -48,13 +48,14 @@ function NavBar() {
                 </Link>
               </li>
             )}
-            {currentUser && (
+            {currentUser?
+            currentUser.roles.includes("ROLE_USER") && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
                   User
                 </Link>
               </li>
-            )}
+            ):<></>}
           </div>
           {currentUser ? (
             <div className="navbar-nav ml-auto right-navbar-side">

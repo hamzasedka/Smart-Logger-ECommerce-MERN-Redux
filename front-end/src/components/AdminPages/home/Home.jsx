@@ -5,6 +5,7 @@ import WidgetLg from "../../AdminComponents/widgetLg/WidgetLg"
 import WidgetSm from "../../AdminComponents/widgetSm/WidgetSm"
 import FeaturedInfo from "../../AdminComponents/featuredInfo/FeaturedInfo"
 
+
 export default function AdminHome() {
   return (
     <>

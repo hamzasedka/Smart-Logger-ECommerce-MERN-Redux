@@ -23,6 +23,9 @@ import { history } from "./helpers/history";
 import NavBar from "./layouts/NavBar";
 import UserList from "./components/AdminPages/userList/UserList";
 import Topbar from "./components/AdminComponents/topbar/Topbar";
+import PublicRoutes from "./Routes/public.routes";
+import AdminRoutes from "./Routes/admin.routes";
+import UserRoutes from "./Routes/user.routes";
 
 
 const App = () => {
@@ -36,33 +39,18 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Router history={history}>
+    <Router >
       <div >
-        {currentUser?
-        currentUser.roles.includes("ROLE_ADMIN")?<Sidebar/>:<NavBar />:<NavBar />}
- {currentUser?
-        currentUser.roles.includes("ROLE_ADMIN")?<Topbar/>:<></>:<></>}
-         <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/home" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
-            <Route exact path="/user" element={<BoardUser />} />
-            {currentUser? currentUser.roles.includes("ROLE_MODERATOR")?
-            <Route exact path="/mod" element={<BoardModerator />} />:< ></>
-            :<></>}
-           <Route  path="/admin" element={<BoardAdmin />}  >
-                 
-               
-           
-            </Route>  
-             <Route exact path="admin/products" element={<ProductList />}  />
-             <Route exact path="admin/users" element={<UserList />}  />
-             <Route exact path="admin/updateUser/:user" element={<User />}  />
-             <Route exact path="admin/updateProduct/:product" element={<Product />}  />
+        <PublicRoutes/>
+      
+     {currentUser?
+     currentUser.roles.includes("ROLE_ADMIN")? <AdminRoutes />:<div></div>:<></>}
+     {currentUser?
+     currentUser.roles.includes("ROLE_USER")? <UserRoutes />:<div></div>:<></>}
+    
 
             
-            </Routes>
+       
         </div>
       
     </Router>

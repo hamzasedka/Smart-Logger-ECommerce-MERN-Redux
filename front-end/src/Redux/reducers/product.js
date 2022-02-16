@@ -1,6 +1,7 @@
 import { FETCH_PRODUCTS_FAIL, FETCH_PRODUCTS_SUCCESS } from "../actions/types";
 
 const initialState = [{
+    _id:"",
     productTitle:"",
     productDisc:"",
     productImage:""

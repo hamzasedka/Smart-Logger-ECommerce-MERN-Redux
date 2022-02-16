@@ -5,6 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { register } from "../Redux/actions/authActions/auth";
+import NavBar from "../layouts/NavBar";
 const required = (value) => {
   if (!value) {
     return (
@@ -76,7 +77,7 @@ const Register = () => {
         });
     }
   };
-  return (
+  return (<>< NavBar />
     <div className="col-md-12">
       <div className="card card-container">
         <img
@@ -135,7 +136,7 @@ const Register = () => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
-    </div>
+    </div></>
   );
 };
 export default Register;

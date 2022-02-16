@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import NavBar from "../layouts/NavBar";
 import {getProducts} from "../Redux/actions/productActions/product"
 import Product from "./Product";
 const Home = () => {
@@ -13,7 +14,9 @@ const Home = () => {
   },[products])
 
   return (
+    <> < NavBar />
     <div className="container">
+     
       <header >
         <Row xs={1} md={2} className="g-6">
   {products.map((product,index) => (
@@ -23,7 +26,7 @@ const Home = () => {
   ))}
 </Row>
       </header>
-    </div>
+    </div></>
   );
 };
 export default Home;

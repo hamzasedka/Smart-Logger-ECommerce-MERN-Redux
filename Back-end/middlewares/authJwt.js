@@ -18,6 +18,7 @@ verifyToken = (req, res, next) => {
 };
 isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
+   
     if (err) {
       res.status(500).send({ message: err });
       return;
@@ -32,11 +33,12 @@ isAdmin = (req, res, next) => {
           return;
         }
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
+          if (roles[i].roleName === "admin") {
             next();
             return;
           }
         }
+       
         res.status(403).send({ message: "Require Admin Role!" });
         return;
       }

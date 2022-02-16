@@ -5,6 +5,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { login } from "../Redux/actions/authActions/auth";
+import NavBar from "../layouts/NavBar";
 const required = (value) => {
   if (!value) {
     return (
@@ -56,7 +57,9 @@ const Login = (props) => {
     }else
     return <Navigate to="/home" />;
   }
+
   return (
+    <>< NavBar />
     <div className="col-md-12">
       <div className="card card-container">
         <img
@@ -106,6 +109,7 @@ const Login = (props) => {
         </Form>
       </div>
     </div>
+    </>
   );
 };
 export default Login;
