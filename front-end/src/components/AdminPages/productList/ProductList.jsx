@@ -1,137 +1,146 @@
 import "./productList.css";
-import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import StarRate  from "@material-ui/icons/StarRate";
+import StarRate from "@material-ui/icons/StarRate";
 import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getProducts} from "../../../Redux/actions/productActions/product"
+import {
+  DeleteProduct,
+  getOneProduct,
+  getProducts,
+} from "../../../Redux/actions/productActions/product";
+import AddProduct from "../addProduct/AddProduct";
 import { Button } from "@material-ui/core";
-
+import MaterialTable, { MTableBodyRow } from "@material-table/core";
+import tableIcons from "../../../helpers/MaterialTableIcons";
 
 export default function ProductList() {
   const [data, setData] = useState(productRows);
-const products =useSelector(state=>state.products)
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(getProducts())
-  
-  },[])
+  const [productDetail, setProductDetail] = useState();
 
- 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item._id !== id));
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const products = useSelector((state) => state.products);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [isDeleted]);
+
+  const toggleShowAddProduct = () => {
+    setShowAddProduct(!showAddProduct);
   };
-
+  const handleDelete = (id) => {
+    let confirmAction = window.confirm("Are you sure to execute this action?");
+    if (confirmAction) {
+      dispatch(DeleteProduct(id));
+      setIsDeleted(!isDeleted);
+    }
+  };
+  const getProductDetails = (item) => {
+    setProductDetail(item);
+    setShowAddProduct(!showAddProduct);
+    setShowAddProduct(!showAddProduct);
+  };
   const columns = [
-    { field: "id", headerName: "ID", width: 250, renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            {params.row._id}
-          </div>
-        );
-      }, },
+    { field: "_id", title: "ID", render: (item) => <div>{item._id}</div> },
     {
-      field: "product",
-      headerName: "Product",
-      width: 300,
-      renderCell: (params) => {
-        
-        return (
-          <div className="productListItem">
-            <img className="productListImg" src={params.row.prodcutImage} alt="" />
-            {params.row.productTitle}
-          </div>
-        );
-      },
+      field: "productTitle",
+      title: "Title",
+      render: (item) => (
+        <div>
+          {item.productTitle}{" "}
+          <img src={item.prodcutImage} alt="" height="30" width="30" />{" "}
+        </div>
+      ),
     },
-    { field: "stock", headerName: "Stock", width: 200 ,  renderCell: (params) => {
-        
-        return (
-          <div className="productListItem">
-            {params.row.productStock}
-          </div>
-        );
-      },
+    { field: "productStock", title: "Stock" },
+    {
+      field: "productStatus",
+      title: "Status",
+      render: (item) => <div>{item.productStatus ? "Active" : "Inactive"}</div>,
     },
     {
-      field: "status",
-      headerName: "Status",
-      width: 200,
-      renderCell: (params) => {
-        
-        return (
-          <div className="productListItem">
-           {params.row.productStatus?<div>Active</div>:<div>Desactive</div>}
-          </div>
-        );
-      },
-     
+      field: "productPrice",
+      title: "Price",
+      render: (item) => <div>{item.productPrice} TND</div>,
     },
     {
-      field: "price",
-      headerName: "Price",
-      width: 160,
-       renderCell: (params) => {
-        
-        return (
-          <div className="productListItem">
-            {params.row.productPrice } TND
-          </div>
-        );
-      },
+      field: "productRating",
+      title: "Rating",
+      render: (item) => (
+        <div className="productListItem">
+          {item.productRating} <StarRate style={{ color: "#FFA500" }} />
+        </div>
+      ),
     },
     {
-      field: "Rating",
-      headerName: "Rating",
-      width: 160,
-       renderCell: (params) => {
-        
-        return (
-          <div className="productListItem">
-            {params.row.productRating } <StarRate style={{color:"#FFA500"}}/>
-          </div>
-        );
-      },
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={ ""+params.row._id}>
-              <button className="productListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="productListDelete"
-              onClick={() => handleDelete(params.row._id)}
-            />
-          </>
-        );
-      },
+      title: "Action",
+      render: (item) => (
+        <>
+          <button
+            className="productListEdit"
+            onClick={() => getProductDetails(item)}
+          >
+            Edit
+          </button>
+
+          <DeleteOutline
+            className="productListDelete"
+            onClick={() => handleDelete(item._id)}
+          />
+        </>
+      ),
     },
   ];
   return (
     <div className="productList">
       <Button
-      color="primary"
+        color="primary"
         variant="outlined"
-        style={{marginBottom:"10px"}}
+        style={{ marginBottom: "10px" }}
         onClick={(event) => {
-        console.log("test");
+          toggleShowAddProduct();
         }}
-        >Create</Button>
-      <DataGrid
-        getRowId={(row) => row._id}
-        rows={products}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
+      >
+        {showAddProduct ? "Back" : "Create"}
+      </Button>
+      {showAddProduct ? (
+        <AddProduct />
+      ) : (
+        <MaterialTable
+          title="Product table "
+          icons={tableIcons}
+          data={products}
+          columns={columns}
+          components={{
+            Row: (props) => <MTableBodyRow id={props.data._id} {...props} />,
+          }}
+          localization={{
+            toolbar: {
+              searchPlaceholder: "Filter",
+              searchTooltip: "filters the given text",
+            },
+
+            header: {
+              actions: "Actions",
+            },
+          }}
+          onChangeRowsPerPage={(data) => {}}
+          options={{
+            actionsColumnIndex: -1,
+            selection: true,
+            exportButton: true,
+            showFirstLastPageButtons: true,
+            pageSize: 5,
+            padding: "dense",
+            pageSizeOptions: [5, 20, 50],
+          }}
+          checkboxSelection
+        />
+      )}
     </div>
   );
 }

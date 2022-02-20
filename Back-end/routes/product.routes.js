@@ -10,10 +10,22 @@ module.exports = function(app){
   });
 
   app.get("/api/products",productController.getAllProducts);
-  
-     app.get(
-    "/api/admin/AddProduct",
+  app.get("/api/productDetails/:id",productController.getOneProduct);
+
+    app.post(
+    "/api/addProduct",
     [authJwt.verifyToken, authJwt.isAdmin],
     productController.addProduct
+  );
+   app.put(
+    "/api/updateProduct/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    productController.updateProduct
+  );
+
+   app.delete(
+    "/api/removeProduct/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    productController.removeProduct
   );
 }

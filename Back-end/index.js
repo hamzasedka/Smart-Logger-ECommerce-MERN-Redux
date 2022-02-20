@@ -17,8 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 require('./routes/product.routes')(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
-
-
+require('./routes/category.routes')(app);
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Smart Logger E-Commerce." });
@@ -29,6 +28,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 const Role = db.role;
+const Category =db.category;
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,

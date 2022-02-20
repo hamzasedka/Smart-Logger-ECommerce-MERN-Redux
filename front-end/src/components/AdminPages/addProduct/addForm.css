@@ -2,9 +2,10 @@
 position: absolute;
 width:70%;
 height: auto;
-top: 25%;
-left: 23%;
+top: 20%;
+left: 10%;
 border-radius: 10px;
 box-shadow: 0px 5px 10px rgba(179, 178, 178, 0.849);
 padding: 10px;
+border: 1px solid rgba(179, 178, 178, 0.849);
 }
