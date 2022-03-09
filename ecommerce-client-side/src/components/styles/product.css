@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+/*===== VARIABLES CSS =====*/
+:root {
+  /*===== Colores =====*/
+  --first-color: black;
+  --white-color: #e9eaec;
+  --dark-color: #e1e5f2;
+  --dark-color-lighten: #f2f5ff;
+  /*===== Fuente y tipografia =====*/
+  --body-font: "Poppins", sans-serif;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+}
+
+h1,
+p {
+  margin: 0;
+  color: black;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card_product {
+  width: 250px;
+  height: 330px;
+  border-radius: 1rem;
+  padding: 4rem 2rem 0;
+  padding-top: -20px;
+  color: var(--white-color);
+  background-color: white;
+  position: relative;
+  margin-bottom: 20px;
+  backdrop-filter: 1rem;
+}
+.card__content {
+  transform: scale(0.8);
+}
+.card__img {
+  position: absolute;
+  width: 260px;
+  filter: drop-shadow(5px 10px 15px rgba(8, 9, 13, 0.4));
+}
+
+.card__data {
+  transform: translateY(13.2rem);
+  text-align: center;
+}
+
+.card__title {
+  font-size: var(--h1-font-size);
+  color: var(--first-color);
+  margin-bottom: 0.5rem;
+}
+
+.card__preci {
+  display: inline-block;
+  font-size: var(--h2-font-size);
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  color: black;
+}
+
+.card__description {
+  font-size: var(--small-font-size);
+  text-align: initial;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+}
+
+.card__button {
+  display: block;
+  width: max-content;
+  padding: 1.125rem 2rem;
+  background-color: white;
+  border: 1px solid var(--first-color);
+  color: var(--first-color);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: 0.2s;
+  opacity: 0;
+}
+
+.card__button:hover {
+  box-shadow: 0 18px 40px -12px black;
+}
+
+.card__img,
+.card__data,
+.card__title,
+.card__preci,
+.card__description {
+  transition: 0.5s;
+}
+
+/* Hover card effect */
+
+.card_product:hover .card__img {
+  transform: translate(-0.5rem, -8.5rem) rotate(-20deg);
+}
+
+.card_product:hover .card__data {
+  transform: translateY(4.8rem);
+}
+
+.card_product:hover .card__title {
+  transform: translateX(-2.3rem);
+  margin-bottom: 0;
+}
+
+.card_product:hover .card__preci {
+  transform: translateX(-6.8rem);
+}
+
+.card_product:hover .card__description,
+.card_product:hover .card__button {
+  transition-delay: 0.2s;
+  opacity: 1;
+}
+.col {
+  flex-grow: 0 !important;
+}
+.button-cart-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.rate {
+  position: absolute;
+  bottom: 2%;
+  left: 5%;
+  margin-bottom: 0;
+}
+.rate .active {
+  text-decoration: none;
+  color: #ffee71;
+}
+.rate .disactive:hover {
+  text-decoration: none;
+  color: #bbb;
+}
+
+.favorite-icon {
+  position: absolute;
+  bottom: 2%;
+  right: 5%;
+  margin-bottom: 0;
+}
+.favorite-icon .fa-icon {
+  font-size: 22px;
+}
+.favorite-icon .fa-icon:hover {
+  color: rgb(231, 89, 89);
+}

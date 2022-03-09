@@ -17,7 +17,7 @@ import tableIcons from "../../../helpers/MaterialTableIcons";
 
 export default function ProductList() {
   const [data, setData] = useState(productRows);
-  const [productDetail, setProductDetail] = useState();
+  const [productDetail, setProductDetail] = useState({});
 
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -30,6 +30,7 @@ export default function ProductList() {
   }, [isDeleted]);
 
   const toggleShowAddProduct = () => {
+    setProductDetail({});
     setShowAddProduct(!showAddProduct);
   };
   const handleDelete = (id) => {
@@ -41,7 +42,6 @@ export default function ProductList() {
   };
   const getProductDetails = (item) => {
     setProductDetail(item);
-    setShowAddProduct(!showAddProduct);
     setShowAddProduct(!showAddProduct);
   };
   const columns = [
@@ -108,7 +108,7 @@ export default function ProductList() {
         {showAddProduct ? "Back" : "Create"}
       </Button>
       {showAddProduct ? (
-        <AddProduct />
+        <AddProduct productDetail={productDetail} />
       ) : (
         <MaterialTable
           title="Product table "

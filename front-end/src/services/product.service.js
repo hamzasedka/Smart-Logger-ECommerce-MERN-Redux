@@ -12,8 +12,9 @@ const removeProduct = (id) => {
     headers: authHeader(),
   });
 };
-const updateProduct = (id) => {
-  return axios.put(API_URL + "updateProduct/" + id, {
+const updateProduct = (id, product) => {
+  console.log(id);
+  return axios.put(API_URL + "updateProduct/" + id, product, {
     headers: authHeader(),
   });
 };

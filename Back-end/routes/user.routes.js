@@ -26,4 +26,31 @@ module.exports = function(app) {
     controller.getAllUsers
   );
  
+   app.post(
+    "/api/admin/addUser",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.addUser
+  );
+    app.put(
+    "/api/admin/updateUser/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.updateUser
+  );
+   app.delete(
+    "/api/admin/removeUser/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.removeUser
+  );
+
+   app.get(
+    "/api/admin/userRoles/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.userRoles
+  );
+
+   app.get(
+    "/api/admin/getAllRoles",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getAllRoles
+  );
 };

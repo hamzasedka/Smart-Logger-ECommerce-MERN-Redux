@@ -1,63 +1,68 @@
 import "./userList.css";
-import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 import RemoveCircle from "@material-ui/icons/RemoveCircle";
 
-import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import {getUsers} from "../../../Redux/actions/userActions/user"
+import { DeleteUser, getUsers } from "../../../Redux/actions/userActions/user";
+import MaterialTable, { MTableBodyRow } from "@material-table/core";
+import tableIcons from "../../../helpers/MaterialTableIcons";
+import { Button } from "@material-ui/core";
+import AddUser from "../addUser/AddUser";
 
 export default function UserList() {
-  const Users=useSelector(state=>state.users);
-  const dispatch=useDispatch();
+  const [UserDetails, setUserDetails] = useState({});
+  const [ShowAddUser, setShowAddUser] = useState(false);
+  const Users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUsers())
-     
-
-  }, [])
- 
+    dispatch(getUsers());
+  }, []);
   const handleDelete = (id) => {
-    Users.filter((item) => item._id !== id);
+    dispatch(DeleteUser(id));
+    dispatch(getUsers());
   };
-  console.log(Users);
+  const getUserDetails = (item) => {
+    setUserDetails(item);
+    setShowAddUser(!ShowAddUser);
+  };
+  const toggleShowAddProduct = () => {
+    setUserDetails({});
+    setShowAddUser(!ShowAddUser);
+  };
   const columns = [
-    { field: "id", headerName: "ID", width: 250 , renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            {params.row._id}
-          </div>
-        );
-      }, },
+    { field: "_id", title: "ID", render: (item) => <div>{item._id}</div> },
     {
-      field: "user",
-      headerName: "User",
+      field: "username",
+      title: "User",
       width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.userImage} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
+      render: (item) => (
+        <div className="userListUser">
+          <img className="userListImg" src={item.userImage} alt="" />
+          {item.username}
+        </div>
+      ),
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "email", title: "Email" },
     {
       field: "status",
-      headerName: "Status",
-      width: 120,
-       renderCell: (params) => {
-        
-        return (
-          <div className="productListItem">
-           {params.row.status?<div><CheckCircle style={{color:"green"}}/></div>:<div><RemoveCircle style={{color:"red"}}/></div>}
-          </div>
-        );
-      },
+      title: "Status",
+      render: (item) => (
+        <div className="productListItem">
+          {item.status ? (
+            <div>
+              <CheckCircle style={{ color: "green" }} /> Online
+            </div>
+          ) : (
+            <div>
+              <RemoveCircle style={{ color: "red" }} /> Offline
+            </div>
+          )}
+        </div>
+      ),
     },
     {
       field: "transaction",
@@ -65,35 +70,71 @@ export default function UserList() {
       width: 160,
     },
     {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={"" + params.row._id}>
-              <button className="userListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="userListDelete"
-              onClick={() => handleDelete(params.row._id)}
-            />
-          </>
-        );
-      },
+      title: "Action",
+      render: (item) => (
+        <>
+          <button
+            className="productListEdit"
+            onClick={() => getUserDetails(item)}
+          >
+            Edit
+          </button>
+
+          <DeleteOutline
+            className="productListDelete"
+            onClick={() => handleDelete(item._id)}
+          />
+        </>
+      ),
     },
   ];
 
   return (
     <div className="userList">
-      <DataGrid
-        rows={Users}
-        getRowId={(row) => row._id}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
+      <Button
+        color="primary"
+        variant="outlined"
+        style={{ marginBottom: "10px" }}
+        onClick={(event) => {
+          toggleShowAddProduct();
+        }}
+      >
+        {ShowAddUser ? "Back" : "Create"}
+      </Button>
+      {ShowAddUser ? (
+        <AddUser userDetail={UserDetails} />
+      ) : (
+        <MaterialTable
+          title="Users table "
+          icons={tableIcons}
+          data={Users}
+          columns={columns}
+          components={{
+            Row: (props) => <MTableBodyRow id={props.data._id} {...props} />,
+          }}
+          localization={{
+            toolbar: {
+              searchPlaceholder: "Filter",
+              searchTooltip: "filters the given text",
+            },
+
+            header: {
+              actions: "Actions",
+            },
+          }}
+          onChangeRowsPerPage={(data) => {}}
+          options={{
+            actionsColumnIndex: -1,
+            selection: true,
+            exportButton: true,
+            showFirstLastPageButtons: true,
+            pageSize: 5,
+            padding: "dense",
+            pageSizeOptions: [5, 20, 50],
+          }}
+          checkboxSelection
+        />
+      )}
     </div>
   );
 }

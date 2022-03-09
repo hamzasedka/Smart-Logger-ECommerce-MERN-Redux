@@ -1,4 +1,5 @@
 const Product = require("../models/product.model")
+const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getAllProducts=(req,res)=>{
 Product.find().then((result)=>{
@@ -20,11 +21,11 @@ exports.addProduct=(req,res)=>{
          productTitle:req.body.productTitle,
         productDisc:req.body.productDisc,
         prodcutImage:req.body.productImage,
-        productPrice:parseInt(req.body.productPrice),
-        productStock:parseInt(req.body.productStock),
+        productPrice:parseFloat(req.body.productPrice),
+        productStock:parseFloat(req.body.productStock),
         productStatus:req.body.productStatus,
-        productRating:parseInt(req.body.productRating),
-        productCategory:req.body.productCategory
+        productRating:parseFloat(req.body.productRating),
+        productCategory:ObjectId(req.body.productCategory)
       }).save(err => {
         if (err) {
           console.log("error", err);
@@ -34,16 +35,17 @@ exports.addProduct=(req,res)=>{
     }
 
     exports.updateProduct=(req,res)=>{
+      console.log(req.body);
    Product.findByIdAndUpdate(req.params.id,
     {
          productTitle:req.body.productTitle,
         productDisc:req.body.productDisc,
         prodcutImage:req.body.productImage,
-        productPrice:parseInt(req.body.productPrice),
-        productStock:parseInt(req.body.productStock),
+        productPrice:parseFloat(req.body.productPrice),
+        productStock:parseFloat(req.body.productStock),
         productStatus:req.body.productStatus,
-        productRating:parseInt(req.body.productRating),
-        productCategory:req.body.productCategory
+        productRating:parseFloat(req.body.productRating),
+        productCategory:ObjectId(req.body.productCategory)
       }).then((result)=>{
    
     res.send(result);

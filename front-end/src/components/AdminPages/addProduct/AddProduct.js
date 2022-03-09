@@ -7,14 +7,9 @@ import { getCategories } from "../../../Redux/actions/categoryActions/category";
 import {
   AddProducts,
   getProducts,
+  UpdateProduct,
 } from "../../../Redux/actions/productActions/product";
-function AddProduct() {
-  const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories);
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []);
-
+function AddProduct({ productDetail }) {
   const [prevState, setProductInput] = useState({
     productTitle: "",
     productImage: "",
@@ -25,6 +20,34 @@ function AddProduct() {
     productStock: 0,
     productRating: 0,
   });
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories);
+  useEffect(() => {
+    dispatch(getCategories());
+    let active = document.getElementById("active");
+    let disactive = document.getElementById("disactive");
+
+    /*let categoryOption = document.getElementById(productDetail.productCategory);
+    console.log(categoryOption);*/
+
+    if (productDetail.productStatus == true) {
+      active.setAttribute("selected", "true");
+    } else {
+      disactive.setAttribute("selected", "true");
+    }
+    if (productDetail) {
+      setProductInput({
+        productTitle: productDetail.productTitle,
+        productImage: productDetail.prodcutImage,
+        productPrice: productDetail.productPrice,
+        productCategory: productDetail.productCategory,
+        productDisc: productDetail.productDisc,
+        productStatus: productDetail.productStatus,
+        productStock: productDetail.productStock,
+        productRating: productDetail.productRating,
+      });
+    }
+  }, []);
 
   const TitleOnChangeHandler = (e) => {
     setProductInput(() => {
@@ -44,7 +67,6 @@ function AddProduct() {
   };
   const CategoryOnChangeHandler = (e) => {
     setProductInput(() => {
-      console.log(e.target);
       return {
         ...prevState,
         productCategory: e.target.value,
@@ -95,8 +117,13 @@ function AddProduct() {
   const SubmitProduct = () => {
     let confirmAction = window.confirm("Are you sure to execute this action?");
     if (confirmAction) {
-      dispatch(AddProducts(prevState));
-      dispatch(getProducts());
+      if (productDetail._id) {
+        dispatch(UpdateProduct(productDetail._id, prevState));
+        dispatch(getProducts());
+      } else {
+        dispatch(AddProducts(prevState));
+        dispatch(getProducts());
+      }
     }
   };
   return (
@@ -108,9 +135,9 @@ function AddProduct() {
             id="Title"
             required
             variant="outlined"
-            value="hamza"
             color="primary"
-            label="Product Title"
+            value={productDetail ? prevState.productTitle : ""}
+            label={productDetail.productTitle ? "" : "Product Title"}
             onChange={TitleOnChangeHandler}
           />
 
@@ -121,7 +148,8 @@ function AddProduct() {
             required
             variant="outlined"
             color="primary"
-            label="Product Price TND"
+            value={productDetail ? prevState.productPrice : ""}
+            label={productDetail.productPrice ? "" : "Product Price TND"}
             type="number"
             inputProps={{ step: "0.1" }}
             onChange={PriceOnChangeHandler}
@@ -134,7 +162,8 @@ function AddProduct() {
             required
             variant="outlined"
             color="primary"
-            label="Product Stock"
+            value={productDetail ? prevState.productStock : ""}
+            label={productDetail.productStock ? "" : "Product Stock"}
             type="number"
             inputProps={{ step: "0.1" }}
             onChange={StockOnChangeHandler}
@@ -147,7 +176,8 @@ function AddProduct() {
             required
             variant="outlined"
             color="primary"
-            label="Product Image Url"
+            value={productDetail ? prevState.productImage : ""}
+            label={productDetail.prodcutImage ? "" : "Product Image Url"}
             onChange={ImageOnChangeHandler}
           />
 
@@ -157,8 +187,12 @@ function AddProduct() {
             style={{ marginTop: "10px", height: "56px" }}
           >
             <option disabled>Select Status</option>
-            <option value="true">Active</option>
-            <option value="false">Disactive</option>
+            <option id="active" value="true">
+              Active
+            </option>
+            <option id="disactive" value="false">
+              Disactive
+            </option>
           </select>
           <TextField
             style={{ marginTop: "10px" }}
@@ -167,7 +201,8 @@ function AddProduct() {
             required
             variant="outlined"
             color="primary"
-            label="Product Rating"
+            value={productDetail ? prevState.productRating : ""}
+            label={productDetail.productRating ? "" : "Product Rating"}
             type="number"
             inputProps={{ step: "0.1" }}
             onChange={RatingOnChangeHandler}
@@ -182,7 +217,7 @@ function AddProduct() {
           <option disabled>Choose Category</option>
 
           {categories.map((category) => (
-            <option key={category._id} value={category._id}>
+            <option id={category._id} key={category._id} value={category._id}>
               {category.CategoryName}
             </option>
           ))}
@@ -195,7 +230,8 @@ function AddProduct() {
             style={{ width: "100%", background: "transparent" }}
             className="form-control"
             id="exampleFormControlTextarea1"
-            placeholder="Description"
+            value={productDetail ? prevState.productDisc : ""}
+            label={productDetail.productDisc ? "" : "Product Description"}
             rows="5"
             onChange={DiscOnChangeHandler}
           />
@@ -203,8 +239,8 @@ function AddProduct() {
         <Button
           color="primary"
           variant="outlined"
-          type="submit"
           style={{ margin: "15px" }}
+          type="submit"
           onClick={SubmitProduct}
         >
           Submit

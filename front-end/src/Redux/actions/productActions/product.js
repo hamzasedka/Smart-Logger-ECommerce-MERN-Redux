@@ -102,8 +102,8 @@ export const DeleteProduct = (id) => (dispatch) => {
   );
 };
 
-export const UpdateProduct = (id) => (dispatch) => {
-  return productService.updateProduct(id).then(
+export const UpdateProduct = (id, product) => (dispatch) => {
+  return productService.updateProduct(id, product).then(
     (response) => {
       dispatch({
         type: UPDATE_PRODUCTS_SUCCESS,

@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif !important;
+}
+
+body {
+  font-family: "Varela Round";
+  background-color: white !important;
+}
+
+.containerBody {
+  width: 100%;
+  height: auto;
+}
+
+/*# sourceMappingURL=App.css.map */
+.SearchBarContainer {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  top: -50px;
+}
+
+.welcome-section {
+  height: 600px;
+  position: relative;
+  background: linear-gradient(to bottom, #212529, white);
+}
+.welcome-section h1 {
+  color: white;
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+}
+
+.welcome-button {
+  width: 300px;
+  height: 50px;
+  background-color: white;
+  color: black;
+  position: absolute;
+  border: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%);
+  transition: 0.5s;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.welcome-button:hover {
+  background-color: black;
+  color: white;
+  transition: 0.5s;
+  border: 1px solid white;
+}
+
+.top-3-products {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.description-section {
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  position: relative;
+  overflow-y: hidden;
+}
+.description-section p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  z-index: 1;
+}
+
+.about-us {
+  position: relative;
+}
+.about-us-detail {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  position: relative;
+}
+.about-us-img {
+  width: 50%;
+}
+
+.about-us-detail-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 30px;
+}
+section {
+  margin-top: 40px;
+}
+.pub-section {
+  width: 100%;
+  height: 500px;
+  background-image: url("https://ik.imagekit.io/67kaqcc3g62/pexels-fariborz-mp-10097388_0J2dnfd-U.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1646825038704");
+  background-size: cover;
+}
+@media (max-width: 767px) {
+  .info-company {
+    flex-direction: "column";
+  }
+}

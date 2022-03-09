@@ -1,0 +1,11 @@
+.side-bar-container {
+  background: linear-gradient(to bottom, transparent, white);
+  width: 90%;
+  height: 100%;
+  position: absolute;
+}
+
+.filter-by-price {
+  width: 100%;
+  padding: 5px;
+}

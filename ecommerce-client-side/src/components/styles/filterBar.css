@@ -1,0 +1,32 @@
+.filterButton {
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  margin-right: 5px;
+  padding: 7px;
+  transition: 0.5s;
+}
+
+.filter-container {
+  margin-bottom: 3%;
+  margin-top: 3%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.filterButton:hover {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  transition: 0.5s;
+}
+button.active {
+  background-color: black;
+  color: white;
+}
+.select-filter {
+  width: auto;
+  position: absolute;
+  right: 10%;
+}
