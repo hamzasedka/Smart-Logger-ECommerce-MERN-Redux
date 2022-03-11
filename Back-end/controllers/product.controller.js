@@ -30,7 +30,7 @@ exports.addProduct=(req,res)=>{
         if (err) {
           console.log("error", err);
         }
-        console.log("added 'user' to roles collection");
+        console.log("added 'product' to roles collection");
       });
     }
 

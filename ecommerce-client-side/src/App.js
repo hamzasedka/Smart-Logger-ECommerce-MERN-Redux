@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer";
-import Header from "./components/header";
+import NavBar from "./components/header";
 import Home from "./components/Home";
 import Shop from "./components/shop";
 
@@ -13,13 +13,13 @@ import SearchModal from "./components/searchModal";
 function App() {
   return (
     <div className="containerBody">
-      <Header />
+      <NavBar />
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route
             exact
-            path="/productDetails/:id"
+            path="shop/productDetails/:id"
             element={<ProductDetails />}
           />
           <Route exact path="/shop" element={<Shop />} />

@@ -39,12 +39,11 @@ function ProductDetails() {
       >
         <header>
           <h1 className="title">{productDetail.productTitle}</h1>
-          <span className="colorCat">mint green</span>
           <div className="price">
-            <span className="before">10 TND</span>
-            <span className="current">{productDetail.productPrice}</span>
+            <span className="before">10%</span>
+            <span className="current">{productDetail.productPrice} TND</span>
           </div>
-          <div className="rate">
+          <div className="rate-product">
             <a href="#!" className="active">
               ★
             </a>

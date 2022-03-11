@@ -33,7 +33,7 @@ function Product({ item }) {
                 to={path}
                 style={{ textDecoration: "none", marginRight: "5px" }}
               >
-                <button className="card__button"> Details</button>
+                <button className="card__button">Details</button>
               </Link>
               <Link to={path} style={{ textDecoration: "none" }}>
                 <button className="card__button"> Add to Cart</button>

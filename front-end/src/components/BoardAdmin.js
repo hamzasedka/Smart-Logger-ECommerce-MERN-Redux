@@ -1,17 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import AdminHome from './AdminPages/home/Home'
-
+import AdminHome from "./AdminPages/home/Home";
 
 function BoardAdmin() {
   return (
-  <>
- 
-    <AdminHome/>
-
-  </>
-    
-  )
+    <>
+      <AdminHome />
+    </>
+  );
 }
 
-export default BoardAdmin
+export default BoardAdmin;

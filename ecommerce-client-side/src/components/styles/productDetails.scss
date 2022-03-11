@@ -9,14 +9,14 @@ $pgb: #e7ecef;
 $pgt: #e7ecef;
 $dot: #349a98;
 $bgb: black;
-$bgt: black;
+$bgt: #24262b;
 $bdot1: #59e8c8;
 $bdot2: #ffee71;
 $bdot3: #6654af;
 $bdot4: #343434;
 $bdot5: #dfdfdf;
 $star: black;
-$discount: black;
+$discount: #24262b;
 
 @mixin bp($bp, $min-max: min-width) {
   $em: $bp/16;
@@ -26,11 +26,7 @@ $discount: black;
 }
 
 .containerProduct {
-  margin-top: 30px;
-  width: 90%;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
+  position: relative;
 }
 
 h5 {
@@ -167,7 +163,7 @@ a {
         }
       }
     }
-    .rate {
+    .rate-product {
       position: static;
       margin-top: 10px;
       a {
@@ -175,7 +171,9 @@ a {
         color: $gray;
         &.active,
         &:hover {
-          color: $star;
+          color: #ffee71;
+          background-color: transparent;
+          text-decoration: none;
         }
       }
     }
@@ -214,10 +212,13 @@ a {
     border-radius: 7px;
     cursor: pointer;
     background: linear-gradient(to bottom, $bgt 0%, $bgb 100%);
+    transition: 0.5s;
+
     box-shadow: 0 20px 20px 0 rgba($bgt, 0.7);
     transition: 200ms;
     &:hover {
       background: linear-gradient(to bottom, $bgb 0%, $bgt 100%);
+      transition: 0.5s;
     }
     > img {
       width: 31px;
@@ -245,11 +246,12 @@ a {
 
 @include bp(600) {
   .product-details {
-    .rate {
+    .rate-product {
       position: absolute;
       top: 12px;
       right: 10px;
       margin-top: 0;
+      background: transparent;
     }
     .controls > div {
       &.qty {

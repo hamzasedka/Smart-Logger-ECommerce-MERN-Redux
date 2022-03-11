@@ -1,14 +1,13 @@
 import React from "react";
 import "./topbar.css";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
-
-
+import MenuIcon from "@mui/icons-material/Menu";
 import { logout } from "../../../Redux/actions/authActions/auth";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-export default function Topbar() {
-  const dispatch=useDispatch();
+export default function Topbar({ setShowSideBar, showSideBare }) {
+  const dispatch = useDispatch();
   const logOut = () => {
     dispatch(logout());
   };
@@ -16,11 +15,13 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">Admin</span>
+          <span className="logo" onClick={() => setShowSideBar(!showSideBare)}>
+            <MenuIcon />
+          </span>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
-            <NotificationsNone />
+            <NotificationsNone color="white" />
             <span className="topIconBadge">2</span>
           </div>
           <div className="topbarIconContainer">
@@ -30,8 +31,11 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <Settings />
           </div>
-          
-         <Link to="/login" className="nav-link" onClick={logOut}> Logout</Link>
+
+          <Link to="/login" className="nav-link" onClick={logOut}>
+            {" "}
+            Logout
+          </Link>
         </div>
       </div>
     </div>

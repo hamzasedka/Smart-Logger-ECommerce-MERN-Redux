@@ -80,7 +80,7 @@ function SearchBar({ placeholder, data }) {
                 }}
                 key={key}
                 className="dataItem"
-                href={value.link}
+                to={"shop/productDetails/" + value._id}
                 target="_blank"
               >
                 <p>{value.productTitle} </p>

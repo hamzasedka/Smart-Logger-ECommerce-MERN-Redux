@@ -14,6 +14,7 @@
 }
 .products-Container {
   background: linear-gradient(to top, #cccccc, white);
+  min-height: 100vh;
 }
 .search-button {
   background-color: transparent;
